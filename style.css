@@ -232,7 +232,7 @@
 
         #drop-zone.drag-over {
             border-color: var(--correct-color); /* Highlight border */
-            background-color: rgba(357de1e4); /* Subtle background change */
+            background-color: rgba(122035e4); /* Subtle background change */
         }
 
         ::-webkit-scrollbar {
