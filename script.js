@@ -16,6 +16,8 @@ const downloadButton = document.getElementById('download-btn');
 const shuffleQuestionsCheckbox = document.getElementById('shuffle-questions-checkbox');
 const shuffleChoicesCheckbox = document.getElementById('shuffle-choices-checkbox');
 const quizFileNameElement = document.getElementById('quiz-file-name');
+const quizJsonTextarea = document.getElementById('quiz-json-textarea');
+const loadQuizFromTextBtn = document.getElementById('load-quiz-from-text-btn');
 
 let questions = [];
 let userAnswers = [];
@@ -30,7 +32,7 @@ function shuffleArray(array) {
     }
 }
 
-function initializeQuiz(quizData) {
+function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     questions = quizData;
     
     if (shuffleQuestionsCheckbox.checked) {
@@ -42,6 +44,8 @@ function initializeQuiz(quizData) {
     score = 0;
     
     dropZoneContainer.classList.add('hide');
+    // Hide the new json-paste-area as well
+    document.getElementById('json-paste-area').classList.add('hide'); 
     appContainer.classList.remove('hide');
     resultsContainer.classList.add('hide');
     questionContainer.classList.remove('hide');
@@ -49,6 +53,7 @@ function initializeQuiz(quizData) {
 
     setupVerticalProgressBar();
     showQuestion();
+    quizFileNameElement.textContent = `Loaded: ${quizName}`;
 }
 
 function setupVerticalProgressBar() {
@@ -185,6 +190,8 @@ nextButton.addEventListener('click', handleNext);
 restartButton.addEventListener('click', () => {
     appContainer.classList.add('hide');
     dropZoneContainer.classList.remove('hide');
+    // Show the json-paste-area again on restart
+    document.getElementById('json-paste-area').classList.remove('hide');
     questionCounter.classList.remove('hide');
     verticalProgressBar.classList.remove('results-active');
     quizFileNameElement.textContent = ''; // Clear file name on restart
@@ -226,8 +233,7 @@ document.addEventListener('drop', (e) => {
         reader.onload = (event) => {
             try {
                 const quizData = JSON.parse(event.target.result);
-                initializeQuiz(quizData);
-                quizFileNameElement.textContent = `Loaded: ${file.name}`;
+                initializeQuiz(quizData, file.name);
             } catch (error) {
                 alert('Error parsing JSON file.');
             }
@@ -235,6 +241,20 @@ document.addEventListener('drop', (e) => {
         reader.readAsText(file);
     } else {
         alert('Please drop a valid .json file.');
+    }
+});
+
+loadQuizFromTextBtn.addEventListener('click', () => {
+    const jsonText = quizJsonTextarea.value;
+    if (jsonText.trim() === '') {
+        alert('Please paste quiz JSON into the text area.');
+        return;
+    }
+    try {
+        const quizData = JSON.parse(jsonText);
+        initializeQuiz(quizData);
+    } catch (error) {
+        alert('Error parsing JSON from text area. Please ensure it is valid JSON.');
     }
 });
 

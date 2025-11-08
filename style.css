@@ -16,10 +16,11 @@
             color: var(--primary-text-color);
             margin: 0;
             display: flex; /* Use flexbox to center content */
+            flex-direction: column; /* Stack children vertically */
             justify-content: center; /* Center horizontally */
             align-items: center; /* Center vertically */
             height: 100vh; /* Full viewport height */
-            overflow: hidden; /* Prevent body scroll */
+            overflow: auto; /* Allow body scroll if content overflows */
         }
 
         .hide {
@@ -82,11 +83,10 @@
         }
 
         #drop-zone-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            /* Removed absolute positioning */
+            width: 80%;
+            max-width: 700px;
+            margin-bottom: 20px; /* Space between drop zone and paste area */
             display: flex; /* Keep flex for centering content inside drop-zone */
             justify-content: center;
             align-items: center;
@@ -106,6 +106,35 @@
             padding: 3rem;
             color: var(--accent-color);
             background-color: var(--container-bg-color);
+        }
+
+        #json-paste-area {
+            width: 60%; /* Reduced width */
+            max-width: 500px; /* Smaller max-width */
+            background-color: var(--container-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px; /* Reduced padding */
+            text-align: center;
+            margin-top: 50px; /* Reduced margin-top */
+        }
+
+        #quiz-json-textarea {
+            width: calc(100% - 20px);
+            height: 100px; /* Reduced height */
+            margin-top: 8px; /* Reduced margin */
+            margin-bottom: 8px; /* Reduced margin */
+            padding: 8px; /* Reduced padding */
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: var(--button-bg-color);
+            color: var(--primary-text-color);
+            resize: vertical;
+            font-family: monospace;
+        }
+
+        #load-quiz-from-text-btn {
+            margin-top: 8px; /* Reduced margin */
         }
 
         #quiz-wrapper {
