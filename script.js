@@ -219,14 +219,19 @@ downloadButton.addEventListener('click', () => {
 
 document.addEventListener('dragover', (e) => {
     e.preventDefault(); // Allow drop
+    dropZone.classList.add('drag-over'); // Add highlight to dropZone
 });
 
 document.addEventListener('dragleave', (e) => {
-    // No visual feedback for now, as it's document-wide
+    // Check if the drag is leaving the entire document, not just an element within it
+    if (!e.relatedTarget || e.relatedTarget.nodeName === 'HTML') {
+        dropZone.classList.remove('drag-over'); // Remove highlight from dropZone
+    }
 });
 
 document.addEventListener('drop', (e) => {
     e.preventDefault();
+    dropZone.classList.remove('drag-over'); // Remove highlight on drop
     const file = e.dataTransfer.files[0];
     if (file && file.name.endsWith('.json')) {
         const reader = new FileReader();
