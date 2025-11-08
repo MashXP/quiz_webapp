@@ -4,7 +4,7 @@ This is an interactive web-based quiz application that allows users to load and 
 
 ## Features
 
-*   **Dynamic Quiz Loading:** Easily load quizzes by dragging and dropping a `.json` file onto the designated area.
+*   **Dynamic Quiz Loading:** Easily load quizzes by dragging and dropping a `.json` file or by pasting JSON content directly into the provided text area.
 *   **Configurable Quiz Experience:**
     *   **Shuffle Questions:** Option to randomize the order of questions.
     *   **Shuffle Choices:** Option to randomize the order of answer choices for each question.
