@@ -25,7 +25,7 @@ const submitBtn = document.getElementById('submit-btn');
 const versionDisplay = document.getElementById('version-display');
 const toggleProgressBtn = document.getElementById('toggle-progress-btn');
 
-const VERSION = "1.1.0";
+const VERSION = "1.2.0";
 versionDisplay.textContent = `v${VERSION}`;
 
 let questions = [];
