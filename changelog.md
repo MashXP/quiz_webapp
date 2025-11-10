@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 1.2.0 - 2025-11-10
+
+### Added
+- **Mobile-Friendly Design**: Implemented responsive layout for optimal viewing on mobile devices.
+- **Animated Progress Bar**: Progress bar now slides up/down with animation on mobile.
+- **Hide/Show Progress Button**: Added a floating arrow button on mobile to toggle progress bar visibility.
+- **Beautified Initial Page**: Redesigned the quiz loading screen with a modern aesthetic, new font, and improved layout.
+
+### Changed
+- **Progress Bar Positioning**: On mobile, the progress bar is now fixed at the bottom of the screen.
+- **Font Consistency**: Answer option buttons now use the 'Poppins' font for a unified look.
+- **UI/UX Refinements**:
+    - Fixed `TypeError` by ensuring DOM elements are loaded before script execution.
+    - Ensured file input element is completely hidden.
+    - Corrected "Click to Upload" button placement on desktop.
+    - Removed all code comments for a cleaner codebase.
+
 ## Version 1.1.0 - 2025-11-10
 
 ### Added

@@ -4,6 +4,7 @@ This is an interactive web-based quiz application that allows users to load and 
 
 ## Features
 
+*   **Mobile-Friendly & Responsive Design**: The application now adapts seamlessly to various screen sizes, providing an optimal experience on both desktop and mobile devices.
 *   **Dynamic Quiz Loading:** Easily load quizzes by dragging and dropping a `.json` file, clicking the upload button, or by pasting JSON content directly into the provided text area.
 *   **Two Quiz Modes:**
     1.  **Immediate Feedback:** The default mode. Get instant feedback on whether your answer is correct or incorrect as soon as you select it.
@@ -13,7 +14,7 @@ This is an interactive web-based quiz application that allows users to load and 
     *   **Shuffle Choices:** Option to randomize the order of answer choices for each question.
 *   **Interactive Quiz Interface:**
     *   Clear display of questions and multiple-choice options.
-    *   **Full Navigation:** A vertical progress bar allows you to jump to any question at any time during the quiz. It also indicates answered and flagged questions.
+    *   **Full Navigation:** A vertical progress bar allows you to jump to any question at any time during the quiz. It also indicates answered and flagged questions. On mobile, the progress bar is at the bottom and can be hidden/shown with an animated arrow button.
     *   **Question Flagging:** Mark questions for later review with a flag button.
 *   **Comprehensive Results:**
     *   Displays final score and total questions.

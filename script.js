@@ -23,6 +23,7 @@ const delayedFeedbackCheckbox = document.getElementById('delayed-feedback-checkb
 const flagBtn = document.getElementById('flag-btn');
 const submitBtn = document.getElementById('submit-btn');
 const versionDisplay = document.getElementById('version-display');
+const toggleProgressBtn = document.getElementById('toggle-progress-btn');
 
 const VERSION = "1.1.0";
 versionDisplay.textContent = `v${VERSION}`;
@@ -62,9 +63,7 @@ function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     lastQuestionIndex = -1;
     score = 0;
     
-    dropZoneContainer.classList.add('hide');
-    // Hide the new json-paste-area as well
-    document.getElementById('json-paste-area').classList.add('hide'); 
+    document.getElementById('initial-setup-container').classList.add('hide');
     appContainer.classList.remove('hide');
     resultsContainer.classList.add('hide');
     questionContainer.classList.remove('hide');
@@ -73,6 +72,13 @@ function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     setupVerticalProgressBar();
     showQuestion();
     quizFileNameElement.textContent = `Loaded: ${quizName}`;
+
+    if (toggleProgressBtn) {
+        const progressArrow = document.getElementById('progress-arrow');
+        if(progressArrow) {
+            progressArrow.className = 'arrow down';
+        }
+    }
 
     if (delayedFeedbackCheckbox.checked) {
         submitBtn.classList.remove('hide');
@@ -90,7 +96,7 @@ function setupVerticalProgressBar() {
         const block = document.createElement('div');
         block.id = `progress-block-${index}`;
         block.className = 'progress-block';
-        block.textContent = index + 1; // Use sequential numbering
+        block.textContent = index + 1;
         block.addEventListener('click', () => {
             if (resultsContainer.classList.contains('hide')) {
                 currentQuestionIndex = index;
@@ -189,7 +195,7 @@ function selectAnswer(selectedButton, selectedOption) {
         if (isCorrect) {
             score++;
         } else {
-            selectedButton.classList.add('incorrect'); // Highlight the selected incorrect answer
+            selectedButton.classList.add('incorrect');
         }
         
         const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
@@ -212,7 +218,7 @@ function showResults() {
         if (unansweredQuestions.length > 0) {
             const confirmSubmit = confirm(`You have ${unansweredQuestions.length} unanswered questions. Are you sure you want to submit?`);
             if (!confirmSubmit) {
-                return; // Stop submission if user cancels
+                return;
             }
         }
 
@@ -270,12 +276,10 @@ nextButton.addEventListener('click', handleNext);
 
 restartButton.addEventListener('click', () => {
     appContainer.classList.add('hide');
-    dropZoneContainer.classList.remove('hide');
-    // Show the json-paste-area again on restart
-    document.getElementById('json-paste-area').classList.remove('hide');
+    document.getElementById('initial-setup-container').classList.remove('hide');
     questionCounter.classList.remove('hide');
     verticalProgressBar.classList.remove('results-active');
-    quizFileNameElement.textContent = ''; // Clear file name on restart
+    quizFileNameElement.textContent = '';
     submitBtn.classList.add('hide');
     flagBtn.classList.add('hide');
 });
@@ -300,6 +304,19 @@ downloadButton.addEventListener('click', () => {
     URL.revokeObjectURL(url);
 });
 
+if (toggleProgressBtn) {
+    toggleProgressBtn.addEventListener('click', () => {
+        verticalProgressBar.classList.toggle('progress-bar-hidden');
+        toggleProgressBtn.classList.toggle('bar-is-hidden');
+        const isHidden = verticalProgressBar.classList.contains('progress-bar-hidden');
+        const progressArrow = document.getElementById('progress-arrow');
+        if (progressArrow) {
+            progressArrow.classList.toggle('up', isHidden);
+            progressArrow.classList.toggle('down', !isHidden);
+        }
+    });
+}
+
 flagBtn.addEventListener('click', () => toggleFlag());
 submitBtn.addEventListener('click', () => showResults());
 
@@ -314,20 +331,19 @@ function toggleFlag() {
 }
 
 document.addEventListener('dragover', (e) => {
-    e.preventDefault(); // Allow drop
-    dropZone.classList.add('drag-over'); // Add highlight to dropZone
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
 });
 
 document.addEventListener('dragleave', (e) => {
-    // Check if the drag is leaving the entire document, not just an element within it
     if (!e.relatedTarget || e.relatedTarget.nodeName === 'HTML') {
-        dropZone.classList.remove('drag-over'); // Remove highlight from dropZone
+        dropZone.classList.remove('drag-over');
     }
 });
 
 document.addEventListener('drop', (e) => {
     e.preventDefault();
-    dropZone.classList.remove('drag-over'); // Remove highlight on drop
+    dropZone.classList.remove('drag-over');
     const file = e.dataTransfer.files[0];
     processFile(file);
 });
@@ -375,9 +391,9 @@ document.addEventListener('keydown', (e) => {
 
     const key = e.key.toLowerCase();
     let targetIndex = -1;
-    if (key >= '1' && key <= '9') { // Allow 1-9 for more options
+    if (key >= '1' && key <= '9') {
         targetIndex = parseInt(key) - 1;
-    } else if (key >= 'a' && key <= 'i') { // Allow a-i
+    } else if (key >= 'a' && key <= 'i') {
         targetIndex = key.charCodeAt(0) - 97;
     }
 

@@ -10,6 +10,7 @@
     <div id="app-container" class="hide">
         <div id="vertical-progress-bar"></div>
         <div id="main-content">
+            <button id="toggle-progress-btn" class="quiz-btn"><span id="progress-arrow"></span></button>
             <div id="quiz-wrapper">
                 <div id="question-header">
                     <h1>Quiz App</h1>
@@ -38,34 +39,37 @@
         </div>
     </div>
 
-    <div id="drop-zone-container">
-         <div id="drop-zone">
-            <h2>Drag & Drop quiz.json file here</h2>
-            <label for="file-upload" class="custom-file-upload">
-                Click to Upload
-            </label>
-            <input id="file-upload" type="file" accept=".json">
-            <div id="quiz-options" style="margin-top: 20px; text-align: left; display: inline-block;">
-                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
-                    <input type="checkbox" id="shuffle-questions-checkbox">
-                    Shuffle Questions
-                </label>
-                <label style="display: block; cursor: pointer;">
-                    <input type="checkbox" id="shuffle-choices-checkbox" checked>
-                    Shuffle Choices
-                </label>
-                <label style="display: block; margin-top: 10px; cursor: pointer;">
-                    <input type="checkbox" id="delayed-feedback-checkbox">
-                    Reveal answers after submission
-                </label>
+    <div id="initial-setup-container">
+        <div id="drop-zone-container">
+             <div id="drop-zone">
+                <h2>Drag & Drop quiz.json file here</h2>
+                            <label for="file-upload" class="custom-file-upload">
+                                Click to Upload
+                            </label>
+                            <input id="file-upload" type="file" accept=".json">
+                            <div id="quiz-options">
+                                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="shuffle-questions-checkbox">
+                                    Shuffle Questions
+                                </label>                    <label style="display: block; cursor: pointer;">
+                        <input type="checkbox" id="shuffle-choices-checkbox" checked>
+                        Shuffle Choices
+                    </label>
+                    <label style="display: block; margin-top: 10px; cursor: pointer;">
+                        <input type="checkbox" id="delayed-feedback-checkbox">
+                        Reveal answers after submission
+                    </label>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="json-paste-area">
-        <h2>Or paste Quiz JSON here</h2>
-        <textarea id="quiz-json-textarea" placeholder='[{"question": "Example Q?", "answer": "A", "options": ["A", "B"]}]'></textarea>
-        <button id="load-quiz-from-text-btn" class="quiz-btn">Load Quiz from Text</button>
+        <div class="separator">OR</div>
+
+        <div id="json-paste-area">
+            <h2>Paste Quiz JSON</h2>
+            <textarea id="quiz-json-textarea" placeholder='[{"question": "Example Q?", "answer": "A", "options": ["A", "B"]}]'></textarea>
+            <button id="load-quiz-from-text-btn" class="quiz-btn">Load Quiz from Text</button>
+        </div>
     </div>
 
     <div id="version-display"></div>
