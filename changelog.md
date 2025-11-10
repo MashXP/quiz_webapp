@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 1.2.1 - 2025-11-10
+
+### Added
+- **Load from GitHub URL**: Users can now load quizzes directly from a GitHub repository URL.
+- **Recommended Quizzes**: A new section on the initial screen provides quick access to a predefined list of recommended quizzes.
+- **Dynamic Quiz Listing**: When a GitHub directory URL is loaded, a list of available `.json` quiz files is displayed.
+
+### Changed
+- **Unified Input Field**: The text area for pasting JSON and the input for GitHub URLs have been combined into a single "universal" input field.
+- **UI Refinements**: The initial setup screen has been reorganized to accommodate the new loading options.
+
 ## Version 1.2.0 - 2025-11-10
 
 ### Added

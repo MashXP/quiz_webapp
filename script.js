@@ -16,17 +16,30 @@ const downloadButton = document.getElementById('download-btn');
 const shuffleQuestionsCheckbox = document.getElementById('shuffle-questions-checkbox');
 const shuffleChoicesCheckbox = document.getElementById('shuffle-choices-checkbox');
 const quizFileNameElement = document.getElementById('quiz-file-name');
-const quizJsonTextarea = document.getElementById('quiz-json-textarea');
-const loadQuizFromTextBtn = document.getElementById('load-quiz-from-text-btn');
 const fileUpload = document.getElementById('file-upload');
 const delayedFeedbackCheckbox = document.getElementById('delayed-feedback-checkbox');
 const flagBtn = document.getElementById('flag-btn');
 const submitBtn = document.getElementById('submit-btn');
 const versionDisplay = document.getElementById('version-display');
 const toggleProgressBtn = document.getElementById('toggle-progress-btn');
+const hotDirectoryListContainer = document.getElementById('hot-directory-list-container');
+const recommendedQuizzesContainer = document.getElementById('recommended-quizzes-container');
+const universalInput = document.getElementById('universal-input');
+const universalLoadBtn = document.getElementById('universal-load-btn');
 
-const VERSION = "1.2.0";
+const VERSION = "1.2.1";
 versionDisplay.textContent = `v${VERSION}`;
+
+const recommendedQuizzes = [
+    {
+        name: 'BK - Cell Biology (2025)',
+        url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/'
+    },
+    {
+        name: 'BK - Microbiology (2025)',
+        url: 'https://github.com/MashXP/BK_Microbiology/tree/master/quiz/'
+    }
+];
 
 let questions = [];
 let userAnswers = [];
@@ -63,7 +76,7 @@ function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     lastQuestionIndex = -1;
     score = 0;
     
-    document.getElementById('initial-setup-container').classList.add('hide');
+    document.getElementById('initial-setup-wrapper').classList.add('hide');
     appContainer.classList.remove('hide');
     resultsContainer.classList.add('hide');
     questionContainer.classList.remove('hide');
@@ -276,7 +289,7 @@ nextButton.addEventListener('click', handleNext);
 
 restartButton.addEventListener('click', () => {
     appContainer.classList.add('hide');
-    document.getElementById('initial-setup-container').classList.remove('hide');
+    document.getElementById('initial-setup-wrapper').classList.remove('hide');
     questionCounter.classList.remove('hide');
     verticalProgressBar.classList.remove('results-active');
     quizFileNameElement.textContent = '';
@@ -365,20 +378,6 @@ function processFile(file) {
     }
 }
 
-loadQuizFromTextBtn.addEventListener('click', () => {
-    const jsonText = quizJsonTextarea.value;
-    if (jsonText.trim() === '') {
-        alert('Please paste quiz JSON into the text area.');
-        return;
-    }
-    try {
-        const quizData = JSON.parse(jsonText);
-        initializeQuiz(quizData);
-    } catch (error) {
-        alert('Error parsing JSON from text area. Please ensure it is valid JSON.');
-    }
-});
-
 document.addEventListener('keydown', (e) => {
     if (appContainer.classList.contains('hide')) return;
 
@@ -404,3 +403,120 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+
+function convertToApiUrl(githubUrl) {
+    try {
+        const url = new URL(githubUrl);
+        const pathParts = url.pathname.split('/').filter(part => part);
+        if (url.hostname !== 'github.com' || pathParts.length < 4 || pathParts[2] !== 'tree') {
+            return null;
+        }
+        const owner = pathParts[0];
+        const repo = pathParts[1];
+        const branch = pathParts[3];
+        const path = pathParts.slice(4).join('/');
+        return `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+    } catch (error) {
+        return null;
+    }
+}
+
+function fetchAndDisplayQuizzes(githubUrl) {
+    const buttonElement = universalLoadBtn;
+    const originalButtonText = buttonElement.textContent;
+    
+    document.querySelectorAll('.quiz-btn.selected').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+
+    buttonElement.textContent = 'Loading...';
+    buttonElement.disabled = true;
+
+    const apiUrl = convertToApiUrl(githubUrl);
+
+    if (!apiUrl) {
+        alert('Invalid GitHub directory URL. Please use the format: https://github.com/owner/repo/tree/branch/path');
+        buttonElement.textContent = originalButtonText;
+        buttonElement.disabled = false;
+        return;
+    }
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            hotDirectoryListContainer.innerHTML = '';
+            if (data.message) {
+                throw new Error(data.message);
+            }
+            data.forEach(item => {
+                if (item.type === 'file' && item.name.endsWith('.json')) {
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.textContent = item.name;
+                    link.dataset.url = item.download_url;
+                    link.classList.add('hot-quiz-link');
+                    hotDirectoryListContainer.appendChild(link);
+                }
+            });
+            buttonElement.classList.add('selected');
+            buttonElement.textContent = originalButtonText;
+            buttonElement.disabled = false;
+        })
+        .catch(error => {
+            console.error('Error fetching hot directory:', error);
+            alert('Failed to load quizzes from the hot directory. ' + error.message);
+            buttonElement.textContent = originalButtonText;
+            buttonElement.disabled = false;
+        });
+}
+
+function populateRecommendedQuizzes() {
+    recommendedQuizzes.forEach(quiz => {
+        const button = document.createElement('button');
+        button.textContent = `${quiz.name}`;
+        button.classList.add('quiz-btn');
+        button.addEventListener('click', () => {
+            universalInput.value = quiz.url;
+            fetchAndDisplayQuizzes(quiz.url);
+        });
+        recommendedQuizzesContainer.appendChild(button);
+    });
+}
+
+universalLoadBtn.addEventListener('click', () => {
+    const input = universalInput.value.trim();
+    if (!input) {
+        alert('Please enter a GitHub URL or paste a quiz JSON.');
+        return;
+    }
+
+    if (input.startsWith('https://github.com')) {
+        fetchAndDisplayQuizzes(input);
+    } else {
+        try {
+            const quizData = JSON.parse(input);
+            initializeQuiz(quizData);
+        } catch (error) {
+            alert('Invalid input. Please enter a valid GitHub URL or a quiz JSON.');
+        }
+    }
+});
+
+hotDirectoryListContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('hot-quiz-link')) {
+        e.preventDefault();
+        const url = e.target.dataset.url;
+        const quizName = e.target.textContent;
+        fetch(url)
+            .then(response => response.json())
+            .then(quizData => {
+                initializeQuiz(quizData, quizName);
+            })
+            .catch(error => {
+                console.error('Error fetching quiz data:', error);
+                alert('Failed to load the selected quiz.');
+            });
+    }
+});
+
+populateRecommendedQuizzes();

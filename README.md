@@ -1,11 +1,15 @@
 # Quiz Web Application
 
-This is an interactive web-based quiz application that allows users to load and take quizzes defined in JSON files. It provides a user-friendly interface with features like drag-and-drop file loading, question and choice shuffling, real-time feedback, and detailed result summaries.
+This is an interactive web-based quiz application that allows users to load and take quizzes defined in JSON files. It provides a user-friendly interface with features like loading from GitHub, question and choice shuffling, real-time feedback, and detailed result summaries.
 
 ## Features
 
-*   **Mobile-Friendly & Responsive Design**: The application now adapts seamlessly to various screen sizes, providing an optimal experience on both desktop and mobile devices.
-*   **Dynamic Quiz Loading:** Easily load quizzes by dragging and dropping a `.json` file, clicking the upload button, or by pasting JSON content directly into the provided text area.
+*   **Multiple Loading Options:**
+    *   **Load from GitHub:** Load quizzes directly from a GitHub repository URL. The app will list all available `.json` files from the specified directory.
+    *   **Recommended Quizzes:** A curated list of quizzes is available on the main screen for quick access.
+    *   **Paste JSON:** Paste raw JSON quiz data directly into the input field.
+    *   **File Upload:** Use the traditional drag-and-drop or file upload button to load a local `.json` file.
+*   **Mobile-Friendly & Responsive Design**: The application adapts seamlessly to various screen sizes, providing an optimal experience on both desktop and mobile devices.
 *   **Two Quiz Modes:**
     1.  **Immediate Feedback:** The default mode. Get instant feedback on whether your answer is correct or incorrect as soon as you select it.
     2.  **Delayed Feedback Mode:** A more traditional test-taking experience. Answer all questions first and then click "Submit All" to see your results.
@@ -29,9 +33,12 @@ This is an interactive web-based quiz application that allows users to load and 
 
 ## How to Use
 
-1.  Open `index.html` in your web browser.
-2.  Drag and drop a quiz `.json` file onto the designated area.
-    *   You can use the provided `quiz_template.json` as a starting point or create your own.
+1.  Open `index.html` in your web browser or visit the [live site](https://mashxp.github.io/quiz_webapp/).
+2.  Choose one of the following methods to load a quiz:
+    *   **GitHub URL:** Paste a URL to a GitHub directory containing quiz files (e.g., `https://github.com/owner/repo/tree/branch/path/to/quizzes`). Click "Load" and select a quiz from the generated list.
+    *   **Recommended Quiz:** Click one of the buttons for the recommended quizzes.
+    *   **Paste JSON:** Paste the contents of a quiz JSON directly into the text area and click "Load".
+    *   **File Upload:** Drag and drop a `.json` file onto the page or use the "Click to Upload" button.
 3.  (Optional) Select whether to shuffle questions and/or choices before starting.
 4.  Answer the questions and navigate through the quiz.
 5.  Review your results upon completion.
