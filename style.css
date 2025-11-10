@@ -61,12 +61,34 @@
             background-color: var(--button-hover-bg-color);
         }
 
+        .progress-block.answered {
+            background-color: #555;
+        }
+
         .progress-block.answered.correct {
             background-color: var(--correct-color);
         }
 
         .progress-block.answered.incorrect {
             background-color: var(--incorrect-color);
+        }
+
+        .option-btn.selected {
+            background-color: var(--accent-color);
+        }
+
+        .option-btn.selected:hover {
+            background-color: var(--accent-color) !important; /* Keep the same background color on hover */
+            cursor: default !important; /* Change cursor to default */
+        }
+
+        .progress-block.flagged {
+            border: 2px solid orange;
+        }
+
+        .progress-block:hover {
+            background-color: var(--button-hover-bg-color);
+            cursor: pointer;
         }
 
         #vertical-progress-bar.results-active .progress-block:hover {

@@ -19,10 +19,14 @@ const quizFileNameElement = document.getElementById('quiz-file-name');
 const quizJsonTextarea = document.getElementById('quiz-json-textarea');
 const loadQuizFromTextBtn = document.getElementById('load-quiz-from-text-btn');
 const fileUpload = document.getElementById('file-upload');
+const delayedFeedbackCheckbox = document.getElementById('delayed-feedback-checkbox');
+const flagBtn = document.getElementById('flag-btn');
+const submitBtn = document.getElementById('submit-btn');
 
 let questions = [];
 let userAnswers = [];
 let currentQuestionIndex = 0;
+let lastQuestionIndex = -1;
 let score = 0;
 let answerSelected = false;
 
@@ -45,8 +49,13 @@ function initializeQuiz(quizData, quizName = 'Pasted JSON') {
         shuffleArray(questions);
     }
 
+    questions.forEach(q => {
+        q.shuffledOptions = shuffleChoicesCheckbox.checked ? [...q.options].sort(() => Math.random() - 0.5) : [...q.options];
+    });
+
     userAnswers = [];
     currentQuestionIndex = 0;
+    lastQuestionIndex = -1;
     score = 0;
     
     dropZoneContainer.classList.add('hide');
@@ -60,6 +69,15 @@ function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     setupVerticalProgressBar();
     showQuestion();
     quizFileNameElement.textContent = `Loaded: ${quizName}`;
+
+    if (delayedFeedbackCheckbox.checked) {
+        submitBtn.classList.remove('hide');
+        flagBtn.classList.remove('hide');
+        nextButton.classList.add('hide');
+    } else {
+        submitBtn.classList.add('hide');
+        flagBtn.classList.add('hide');
+    }
 }
 
 function setupVerticalProgressBar() {
@@ -70,7 +88,10 @@ function setupVerticalProgressBar() {
         block.className = 'progress-block';
         block.textContent = index + 1; // Use sequential numbering
         block.addEventListener('click', () => {
-            if (!resultsContainer.classList.contains('hide')) {
+            if (resultsContainer.classList.contains('hide')) {
+                currentQuestionIndex = index;
+                showQuestion();
+            } else {
                 const resultItem = document.getElementById(`result-item-${index}`);
                 if (resultItem) {
                     resultItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -85,26 +106,34 @@ function showQuestion() {
     resetState();
     updateQuestionCounter();
     
-    const previousBlock = document.getElementById(`progress-block-${currentQuestionIndex - 1}`);
-    if (previousBlock) {
-        previousBlock.classList.remove('current');
+    if (lastQuestionIndex !== -1) {
+        const lastBlock = document.getElementById(`progress-block-${lastQuestionIndex}`);
+        if (lastBlock) {
+            lastBlock.classList.remove('current');
+        }
     }
+
     const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
-    currentBlock.classList.add('current');
-    currentBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (currentBlock) {
+        currentBlock.classList.add('current');
+        currentBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    lastQuestionIndex = currentQuestionIndex;
 
     const question = questions[currentQuestionIndex];
     questionText.innerText = question.question;
 
-    let options = [...question.options];
-    if (shuffleChoicesCheckbox.checked) {
-        shuffleArray(options);
-    }
+    flagBtn.textContent = question.flagged ? '🏳️' : '🚩';
+
+    let options = question.shuffledOptions;
 
     options.forEach((option, index) => {
         const button = document.createElement('button');
         button.innerHTML = `<span style="font-weight: bold; margin-right: 10px;">${String.fromCharCode(65 + index)}</span> ${option}`;
         button.classList.add('option-btn');
+        if (delayedFeedbackCheckbox.checked && userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].selectedAnswer === option) {
+            button.classList.add('selected');
+        }
         button.dataset.index = index;
         button.addEventListener('click', () => selectAnswer(button, option));
         optionsContainer.appendChild(button);
@@ -124,41 +153,83 @@ function resetState() {
 }
 
 function selectAnswer(selectedButton, selectedOption) {
-    if (answerSelected) return;
-    answerSelected = true;
+    if (delayedFeedbackCheckbox.checked) {
+        userAnswers[currentQuestionIndex] = {
+            question: questions[currentQuestionIndex].question,
+            selectedAnswer: selectedOption,
+            correctAnswer: questions[currentQuestionIndex].answer,
+        };
 
-    const correctAnswer = questions[currentQuestionIndex].answer;
-    const isCorrect = selectedOption === correctAnswer;
+        Array.from(optionsContainer.children).forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        selectedButton.classList.add('selected');
+        
+        const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
+        currentBlock.classList.add('answered');
 
-    userAnswers.push({
-        question: questions[currentQuestionIndex].question,
-        selectedAnswer: selectedOption,
-        correctAnswer: correctAnswer,
-        isCorrect: isCorrect
-    });
-
-    if (isCorrect) {
-        score++;
     } else {
-        selectedButton.classList.add('incorrect'); // Highlight the selected incorrect answer
-    }
-    
-    const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
-    currentBlock.classList.add('answered', isCorrect ? 'correct' : 'incorrect');
+        if (answerSelected) return;
+        answerSelected = true;
 
-    Array.from(optionsContainer.children).forEach(button => {
-        if (button.innerText.includes(correctAnswer)) {
-            button.classList.add('correct');
+        const correctAnswer = questions[currentQuestionIndex].answer;
+        const isCorrect = selectedOption === correctAnswer;
+
+        userAnswers[currentQuestionIndex] = {
+            question: questions[currentQuestionIndex].question,
+            selectedAnswer: selectedOption,
+            correctAnswer: correctAnswer,
+            isCorrect: isCorrect
+        };
+
+        if (isCorrect) {
+            score++;
+        } else {
+            selectedButton.classList.add('incorrect'); // Highlight the selected incorrect answer
         }
-        button.disabled = true;
-    });
+        
+        const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
+        currentBlock.classList.add('answered', isCorrect ? 'correct' : 'incorrect');
 
-    nextButton.classList.remove('hide');
+        Array.from(optionsContainer.children).forEach(button => {
+            if (button.innerText.includes(correctAnswer)) {
+                button.classList.add('correct');
+            }
+            button.disabled = true;
+        });
+
+        nextButton.classList.remove('hide');
+    }
 }
 
 function showResults() {
+    if (delayedFeedbackCheckbox.checked) {
+        const unansweredQuestions = questions.filter((q, index) => !userAnswers[index] || !userAnswers[index].selectedAnswer);
+        if (unansweredQuestions.length > 0) {
+            const confirmSubmit = confirm(`You have ${unansweredQuestions.length} unanswered questions. Are you sure you want to submit?`);
+            if (!confirmSubmit) {
+                return; // Stop submission if user cancels
+            }
+        }
+
+        score = 0;
+        userAnswers.forEach((answer, index) => {
+            const isCorrect = answer.selectedAnswer === answer.correctAnswer;
+            answer.isCorrect = isCorrect;
+            if (isCorrect) {
+                score++;
+            }
+            const block = document.getElementById(`progress-block-${index}`);
+            if (block) {
+                block.classList.add(isCorrect ? 'correct' : 'incorrect');
+            }
+        });
+    }
+
     questionContainer.classList.add('hide');
     nextButton.classList.add('hide');
+    submitBtn.classList.add('hide');
+    flagBtn.classList.add('hide');
     questionCounter.classList.add('hide');
     resultsContainer.classList.remove('hide');
     verticalProgressBar.classList.add('results-active');
@@ -201,6 +272,8 @@ restartButton.addEventListener('click', () => {
     questionCounter.classList.remove('hide');
     verticalProgressBar.classList.remove('results-active');
     quizFileNameElement.textContent = ''; // Clear file name on restart
+    submitBtn.classList.add('hide');
+    flagBtn.classList.add('hide');
 });
 
 downloadButton.addEventListener('click', () => {
@@ -222,6 +295,19 @@ downloadButton.addEventListener('click', () => {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 });
+
+flagBtn.addEventListener('click', () => toggleFlag());
+submitBtn.addEventListener('click', () => showResults());
+
+function toggleFlag() {
+    const question = questions[currentQuestionIndex];
+    question.flagged = !question.flagged;
+    
+    const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
+    currentBlock.classList.toggle('flagged');
+    
+    flagBtn.textContent = question.flagged ? '🏳️' : '🚩';
+}
 
 document.addEventListener('dragover', (e) => {
     e.preventDefault(); // Allow drop

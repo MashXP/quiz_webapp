@@ -21,7 +21,9 @@
                     <div id="options-container"></div>
                 </div>
                 <div style="text-align: center;">
+                    <button id="flag-btn" class="quiz-btn">🚩</button>
                     <button id="next-btn" class="quiz-btn hide">Next</button>
+                    <button id="submit-btn" class="quiz-btn hide">Submit All</button>
                 </div>
                 <div id="results-container" class="hide">
                     <h2>Quiz Complete!</h2>
@@ -51,6 +53,10 @@
                 <label style="display: block; cursor: pointer;">
                     <input type="checkbox" id="shuffle-choices-checkbox" checked>
                     Shuffle Choices
+                </label>
+                <label style="display: block; margin-top: 10px; cursor: pointer;">
+                    <input type="checkbox" id="delayed-feedback-checkbox">
+                    Reveal answers after submission
                 </label>
             </div>
         </div>
