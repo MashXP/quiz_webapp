@@ -3,6 +3,7 @@
 ## Version 1.1.0 - 2025-11-10
 
 ### Added
+- **Application Version Display**: The current version number is now displayed in the bottom right corner of the screen.
 - **Delayed Feedback Mode**: New option to hide answer correctness until the entire quiz is submitted.
 - **Question Flagging**: Users can now flag questions for later review using a '🚩' button.
 - **Submit All Button**: In delayed feedback mode, a "Submit All" button appears to finalize the quiz.
