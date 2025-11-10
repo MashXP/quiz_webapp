@@ -276,6 +276,15 @@
             background-color: rgba(122035e4); /* Subtle background change */
         }
 
+        #version-display {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            color: #888;
+            z-index: 9999;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;

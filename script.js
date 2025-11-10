@@ -22,6 +22,10 @@ const fileUpload = document.getElementById('file-upload');
 const delayedFeedbackCheckbox = document.getElementById('delayed-feedback-checkbox');
 const flagBtn = document.getElementById('flag-btn');
 const submitBtn = document.getElementById('submit-btn');
+const versionDisplay = document.getElementById('version-display');
+
+const VERSION = "1.1.0";
+versionDisplay.textContent = `v${VERSION}`;
 
 let questions = [];
 let userAnswers = [];
