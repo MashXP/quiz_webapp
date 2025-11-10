@@ -4,14 +4,17 @@ This is an interactive web-based quiz application that allows users to load and 
 
 ## Features
 
-*   **Dynamic Quiz Loading:** Easily load quizzes by dragging and dropping a `.json` file or by pasting JSON content directly into the provided text area.
+*   **Dynamic Quiz Loading:** Easily load quizzes by dragging and dropping a `.json` file, clicking the upload button, or by pasting JSON content directly into the provided text area.
+*   **Two Quiz Modes:**
+    1.  **Immediate Feedback:** The default mode. Get instant feedback on whether your answer is correct or incorrect as soon as you select it.
+    2.  **Delayed Feedback Mode:** A more traditional test-taking experience. Answer all questions first and then click "Submit All" to see your results.
 *   **Configurable Quiz Experience:**
     *   **Shuffle Questions:** Option to randomize the order of questions.
     *   **Shuffle Choices:** Option to randomize the order of answer choices for each question.
 *   **Interactive Quiz Interface:**
     *   Clear display of questions and multiple-choice options.
-    *   Visual progress bar indicating current question and overall quiz progress.
-    *   Immediate feedback on whether a selected answer is correct or incorrect.
+    *   **Full Navigation:** A vertical progress bar allows you to jump to any question at any time during the quiz. It also indicates answered and flagged questions.
+    *   **Question Flagging:** Mark questions for later review with a flag button.
 *   **Comprehensive Results:**
     *   Displays final score and total questions.
     *   Provides detailed breakdown of each question, including the user's answer, the correct answer, and whether it was answered correctly.
@@ -20,7 +23,7 @@ This is an interactive web-based quiz application that allows users to load and 
     *   **Restart Quiz:** Option to retake the quiz.
     *   **Download Results:** Save quiz results as a JSON file for review or record-keeping.
 *   **Keyboard Navigation:**
-    *   Select answers using number keys (1-4) or letter keys (a, b, c, d).
+    *   Select answers using number keys (1-9) or letter keys (a-i).
     *   Advance to the next question or view results using the Enter or Space key.
 
 ## How to Use
