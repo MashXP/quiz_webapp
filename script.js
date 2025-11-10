@@ -18,12 +18,18 @@ const shuffleChoicesCheckbox = document.getElementById('shuffle-choices-checkbox
 const quizFileNameElement = document.getElementById('quiz-file-name');
 const quizJsonTextarea = document.getElementById('quiz-json-textarea');
 const loadQuizFromTextBtn = document.getElementById('load-quiz-from-text-btn');
+const fileUpload = document.getElementById('file-upload');
 
 let questions = [];
 let userAnswers = [];
 let currentQuestionIndex = 0;
 let score = 0;
 let answerSelected = false;
+
+fileUpload.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    processFile(file);
+}, false);
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -233,6 +239,10 @@ document.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('drag-over'); // Remove highlight on drop
     const file = e.dataTransfer.files[0];
+    processFile(file);
+});
+
+function processFile(file) {
     if (file && file.name.endsWith('.json')) {
         const reader = new FileReader();
         reader.onload = (event) => {
@@ -247,7 +257,7 @@ document.addEventListener('drop', (e) => {
     } else {
         alert('Please drop a valid .json file.');
     }
-});
+}
 
 loadQuizFromTextBtn.addEventListener('click', () => {
     const jsonText = quizJsonTextarea.value;
