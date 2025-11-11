@@ -36,6 +36,10 @@ const recommendedQuizzes = [
         url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/'
     },
     {
+        name: 'Cell Biology (Midterm)',
+        url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/BK_midterm'
+    },
+    {
         name: 'BK - Microbiology (2025)',
         url: 'https://github.com/MashXP/BK_Microbiology/tree/master/quiz/'
     }
