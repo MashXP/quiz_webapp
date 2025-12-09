@@ -44,6 +44,10 @@ const recommendedQuizzes = [
         url: 'https://github.com/MashXP/BK_Microbiology/tree/master/quiz/'
     },
     {
+        name: 'BK - Mass Transfer Process & Equipment (2025)',
+        url: 'https://github.com/MashXP/BK_MassTransfer/tree/master/quiz/'
+    },
+    {
         name: 'BK - Scientific Socialism - Finals (2025)',
         url: 'https://github.com/MashXP/BK_XHCN/tree/master/quiz/'
     }
