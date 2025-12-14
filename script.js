@@ -156,11 +156,15 @@ function showQuestion() {
     lastQuestionIndex = currentQuestionIndex;
 
     const question = questions[currentQuestionIndex];
-    questionText.innerText = question.question;
+    questionText.innerHTML = question.question; // Use innerHTML for LaTeX rendering
 
     flagBtn.textContent = question.flagged ? '🏳️' : '🚩';
 
     let options = question.shuffledOptions;
+
+    optionsContainer.innerHTML = ''; // Clear previous options
+    const optionsWrapper = document.createElement('div');
+    optionsWrapper.id = 'options-wrapper'; // New wrapper for options
 
     options.forEach((option, index) => {
         const button = document.createElement('button');
@@ -170,8 +174,20 @@ function showQuestion() {
             button.classList.add('selected');
         }
         button.dataset.index = index;
+        button.dataset.option = option; // Store the option text in a dataset attribute
         button.addEventListener('click', () => selectAnswer(button, option));
-        optionsContainer.appendChild(button);
+        optionsWrapper.appendChild(button); // Append to wrapper
+    });
+    optionsContainer.appendChild(optionsWrapper); // Append wrapper to container
+
+    // Render LaTeX in the entire question container
+    renderMathInElement(questionContainer, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\(", right: "\\)", display: false}
+        ]
     });
 }
 
@@ -181,9 +197,7 @@ function updateQuestionCounter() {
 
 function resetState() {
     answerSelected = false;
-    while (optionsContainer.firstChild) {
-        optionsContainer.removeChild(optionsContainer.firstChild);
-    }
+    optionsContainer.innerHTML = ''; // This clears all children including options and correct answer displays
     nextButton.classList.add('hide');
 }
 
@@ -195,9 +209,12 @@ function selectAnswer(selectedButton, selectedOption) {
             correctAnswer: questions[currentQuestionIndex].answer,
         };
 
-        Array.from(optionsContainer.children).forEach(btn => {
-            btn.classList.remove('selected');
-        });
+        const currentOptionsWrapper = document.getElementById('options-wrapper');
+        if (currentOptionsWrapper) {
+            Array.from(currentOptionsWrapper.children).forEach(btn => {
+                btn.classList.remove('selected');
+            });
+        }
         selectedButton.classList.add('selected');
         
         const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
@@ -219,19 +236,24 @@ function selectAnswer(selectedButton, selectedOption) {
 
         if (isCorrect) {
             score++;
+            selectedButton.classList.add('correct'); // Highlight selected button as correct
         } else {
-            selectedButton.classList.add('incorrect');
+            selectedButton.classList.add('incorrect'); // Highlight selected button as incorrect
         }
         
         const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
         currentBlock.classList.add('answered', isCorrect ? 'correct' : 'incorrect');
 
-        Array.from(optionsContainer.children).forEach(button => {
-            if (button.innerText.includes(correctAnswer)) {
-                button.classList.add('correct');
-            }
-            button.disabled = true;
-        });
+        const currentOptionsWrapper = document.getElementById('options-wrapper');
+        if (currentOptionsWrapper) {
+            Array.from(currentOptionsWrapper.children).forEach(button => {
+                // Only highlight the correct answer if the selected answer was incorrect
+                if (!isCorrect && button.dataset.option === correctAnswer) {
+                    button.classList.add('correct');
+                }
+                button.disabled = true;
+            });
+        }
 
         nextButton.classList.remove('hide');
     }
@@ -285,6 +307,16 @@ function showResults() {
         }
         resultItem.innerHTML = innerHTML;
         detailedResultsContainer.appendChild(resultItem);
+    });
+
+    // Render LaTeX in the detailed results container
+    renderMathInElement(detailedResultsContainer, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\(", right: "\\)", display: false}
+        ]
     });
 }
 

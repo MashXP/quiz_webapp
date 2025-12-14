@@ -18,5 +18,25 @@
       "Purple"
     ],
     "answer": "Blue"
+  },
+  {
+    "question": "Solve for $x$ in the equation: $$2x + 5 = 15$$",
+    "answer": "5",
+    "options": [
+      "2",
+      "5",
+      "10",
+      "15"
+    ]
+  },
+  {
+    "question": "What is the integral of $f(x) = x^2$?",
+    "answer": "$$\\frac{x^3}{3} + C$$",
+    "options": [
+      "$$2x + C$$",
+      "$$x^3 + C$$",
+      "$$\\frac{x^3}{3} + C$$",
+      "$$\\frac{x^2}{2} + C$$"
+    ]
   }
 ]

@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.2.2 - 2025-12-14
+
+### Added
+- KaTeX Integration: Added support for rendering LaTeX mathematical equations in questions and answers.
+
 ## Version 1.2.1 - 2025-11-10
 
 ### Added
