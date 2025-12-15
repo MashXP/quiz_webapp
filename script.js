@@ -27,7 +27,7 @@ const recommendedQuizzesContainer = document.getElementById('recommended-quizzes
 const universalInput = document.getElementById('universal-input');
 const universalLoadBtn = document.getElementById('universal-load-btn');
 
-const VERSION = "1.2.1";
+const VERSION = "1.2.3";
 versionDisplay.textContent = `v${VERSION}`;
 
 const recommendedQuizzes = [
