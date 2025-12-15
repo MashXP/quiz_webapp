@@ -72,15 +72,47 @@ function shuffleArray(array) {
     }
 }
 
+function naturalSort(a, b) {
+    const re = /(\d+)/g;
+    const aParts = a.split(re).filter(Boolean);
+    const bParts = b.split(re).filter(Boolean);
+
+    for (let i = 0; i < Math.min(aParts.length, bParts.length); i++) {
+        const aPart = aParts[i];
+        const bPart = bParts[i];
+
+        const isANum = !isNaN(aPart) && !isNaN(parseFloat(aPart));
+        const isBNum = !isNaN(bPart) && !isNaN(parseFloat(bPart));
+
+        if (isANum && isBNum) {
+            const numA = parseFloat(aPart);
+            const numB = parseFloat(bPart);
+            if (numA !== numB) {
+                return numA - numB;
+            }
+        } else if (aPart !== bPart) {
+            return aPart.localeCompare(bPart);
+        }
+    }
+    return aParts.length - bParts.length;
+}
+
 function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     questions = quizData;
     
     if (shuffleQuestionsCheckbox.checked) {
         shuffleArray(questions);
+    } else {
+        // If not shuffling, apply natural sort to questions based on their text
+        questions.sort((a, b) => naturalSort(a.question, b.question));
     }
 
     questions.forEach(q => {
         q.shuffledOptions = shuffleChoicesCheckbox.checked ? [...q.options].sort(() => Math.random() - 0.5) : [...q.options];
+        // If not shuffling choices, apply natural sort to options based on their text
+        if (!shuffleChoicesCheckbox.checked) {
+            q.shuffledOptions.sort((a, b) => naturalSort(a, b));
+        }
     });
 
     userAnswers = [];
@@ -492,6 +524,9 @@ function fetchAndDisplayQuizzes(githubUrl) {
             if (data.message) {
                 throw new Error(data.message);
             }
+            // Sort the data naturally by file name before displaying
+            data.sort((a, b) => naturalSort(a.name, b.name));
+
             data.forEach(item => {
                 if (item.type === 'file' && item.name.endsWith('.json')) {
                     const link = document.createElement('a');
