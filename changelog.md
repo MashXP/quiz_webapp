@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 1.2.3 - 2025-12-15
+
+### Added
+- **Natural Sorting for Questions and Options**: Questions and their answer options are now numerically sorted (e.g., 1, 2, 10, 11) when shuffling is disabled. This applies to both the main quiz view and detailed results.
+- **Natural Sorting for Hot Directory Listings**: Quiz files listed in the "hot directory" are now numerically sorted by their names, ensuring a logical order (e.g., quiz-1, quiz-2, quiz-10).
+
+### Fixed
+- **Modifier Key Conflict**: Prevented keyboard shortcuts (e.g., for option selection) from activating when modifier keys (Ctrl, Alt, Shift, Meta) are pressed, resolving conflicts with system-level shortcuts like Ctrl+C.
+
 ## Version 1.2.2 - 2025-12-14
 
 ### Added

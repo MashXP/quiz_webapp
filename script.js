@@ -461,6 +461,11 @@ function processFile(file) {
 document.addEventListener('keydown', (e) => {
     if (appContainer.classList.contains('hide')) return;
 
+    // Prevent shortcuts if modifier keys are pressed
+    if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+        return;
+    }
+
     if (e.key === 'Enter' || e.key === ' ') {
         if (!nextButton.classList.contains('hide')) {
             e.preventDefault();
