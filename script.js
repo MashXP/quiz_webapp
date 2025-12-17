@@ -487,6 +487,24 @@ document.addEventListener('keydown', (e) => {
         return;
     }
 
+    if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showQuestion();
+        }
+        return;
+    }
+
+    if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+        return;
+    }
+
     if (e.key === 'Enter' || e.key === ' ') {
         if (!nextButton.classList.contains('hide')) {
             e.preventDefault();
