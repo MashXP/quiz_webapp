@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 1.2.4 - 2025-12-25
+
+### Added
+- **Incorrect Answer Filter**: Added a "Show Only Incorrect Answers" checkbox to the results page, allowing users to focus on their mistakes.
+
+### Changed
+- **Score Display**: Enhanced the visual style of the final score display to make it more prominent and engaging.
+
+### Fixed
+- **Layout Stability**: Fixed layout issues that caused unintended horizontal scrolling and empty whitespace on the answer page.
+- **Image Responsiveness**: Ensured images within questions and answers do not overflow their containers.
+- **Box Sizing**: Applied a global `box-sizing: border-box` reset for consistent element sizing.
+
 ## Version 1.2.3 - 2025-12-15
 
 ### Added

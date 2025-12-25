@@ -357,6 +357,38 @@ h1, h2 {
     border-left-color: var(--incorrect-color);
 }
 
+.score-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: var(--button-bg-color);
+    border-radius: 15px;
+    display: inline-block;
+    min-width: 200px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.score-display {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    line-height: 1;
+}
+
+.score-divider {
+    color: #666;
+    font-size: 0.7em;
+    margin: 0 5px;
+}
+
+.score-message {
+    font-size: 1.1rem;
+    color: #aaa;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
 .quiz-file-info {
     font-size: 0.9em;
     color: var(--primary-text-color);
