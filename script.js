@@ -26,6 +26,7 @@ const hotDirectoryListContainer = document.getElementById('hot-directory-list-co
 const recommendedQuizzesContainer = document.getElementById('recommended-quizzes-container');
 const universalInput = document.getElementById('universal-input');
 const universalLoadBtn = document.getElementById('universal-load-btn');
+const filterIncorrectCheckbox = document.getElementById('filter-incorrect-checkbox');
 
 const VERSION = "1.2.3";
 versionDisplay.textContent = `v${VERSION}`;
@@ -124,6 +125,8 @@ function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     lastQuestionIndex = -1;
     score = 0;
     
+    filterIncorrectCheckbox.checked = false;
+
     document.getElementById('initial-setup-wrapper').classList.add('hide');
     appContainer.classList.remove('hide');
     resultsContainer.classList.add('hide');
@@ -644,6 +647,13 @@ hotDirectoryListContainer.addEventListener('click', (e) => {
                 alert('Failed to load the selected quiz.');
             });
     }
+});
+
+filterIncorrectCheckbox.addEventListener('change', () => {
+    const correctItems = document.querySelectorAll('.result-item.correct');
+    correctItems.forEach(item => {
+        item.style.display = filterIncorrectCheckbox.checked ? 'none' : 'block';
+    });
 });
 
 populateRecommendedQuizzes();
