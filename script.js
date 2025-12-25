@@ -28,7 +28,7 @@ const universalInput = document.getElementById('universal-input');
 const universalLoadBtn = document.getElementById('universal-load-btn');
 const filterIncorrectCheckbox = document.getElementById('filter-incorrect-checkbox');
 
-const VERSION = "1.2.3";
+const VERSION = "1.2.4";
 versionDisplay.textContent = `v${VERSION}`;
 
 const recommendedQuizzes = [
