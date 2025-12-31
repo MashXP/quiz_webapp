@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.2.5 - 2025-12-31
+
+### Added
+- **Per-Question Shuffle Control**: Added support for the `"shuffleOptions": false` JSON field, allowing individual questions to opt-out of answer shuffling and maintain their original order.
+
 ## Version 1.2.4 - 2025-12-25
 
 ### Added

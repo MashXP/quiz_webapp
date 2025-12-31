@@ -28,7 +28,7 @@ const universalInput = document.getElementById('universal-input');
 const universalLoadBtn = document.getElementById('universal-load-btn');
 const filterIncorrectCheckbox = document.getElementById('filter-incorrect-checkbox');
 
-const VERSION = "1.2.4";
+const VERSION = "1.2.5";
 versionDisplay.textContent = `v${VERSION}`;
 
 const recommendedQuizzes = [
@@ -113,10 +113,13 @@ function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     }
 
     questions.forEach(q => {
-        q.shuffledOptions = shuffleChoicesCheckbox.checked ? [...q.options].sort(() => Math.random() - 0.5) : [...q.options];
-        // If not shuffling choices, apply natural sort to options based on their text
-        if (!shuffleChoicesCheckbox.checked) {
-            q.shuffledOptions.sort((a, b) => naturalSort(a, b));
+        if (q.shuffleOptions === false) {
+            q.shuffledOptions = [...q.options];
+        } else if (shuffleChoicesCheckbox.checked) {
+            q.shuffledOptions = [...q.options];
+            shuffleArray(q.shuffledOptions);
+        } else {
+            q.shuffledOptions = [...q.options].sort((a, b) => naturalSort(a, b));
         }
     });
 

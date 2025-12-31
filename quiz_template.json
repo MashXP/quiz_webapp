@@ -30,6 +30,17 @@
     ]
   },
   {
+    "question": "The answers below SHOULDN'T be shuffled.",
+    "answer": "D",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "shuffleOptions": false
+  },
+  {
     "question": "What is the integral of $f(x) = x^2$?",
     "answer": "$$\\frac{x^3}{3} + C$$",
     "options": [
