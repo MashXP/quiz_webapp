@@ -58,6 +58,7 @@ function fetchAndDisplayQuizzes(githubUrl) {
             buttonElement.classList.add('selected');
             buttonElement.textContent = originalButtonText;
             buttonElement.disabled = false;
+            saveAppState();
         })
         .catch(error => {
             console.error('Error fetching hot directory:', error);

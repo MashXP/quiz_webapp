@@ -28,7 +28,7 @@ const universalInput = document.getElementById('universal-input');
 const universalLoadBtn = document.getElementById('universal-load-btn');
 const filterIncorrectCheckbox = document.getElementById('filter-incorrect-checkbox');
 
-const VERSION = "1.2.5";
+const VERSION = "1.2.6";
 if (versionDisplay) {
     versionDisplay.textContent = `v${VERSION}`;
 }

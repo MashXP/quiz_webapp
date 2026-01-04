@@ -141,7 +141,18 @@ filterIncorrectCheckbox.addEventListener('change', () => {
     correctItems.forEach(item => {
         item.style.display = filterIncorrectCheckbox.checked ? 'none' : 'block';
     });
+    saveAppState();
 });
+
+// Save settings when changed
+shuffleQuestionsCheckbox.addEventListener('change', saveAppState);
+shuffleChoicesCheckbox.addEventListener('change', saveAppState);
+delayedFeedbackCheckbox.addEventListener('change', saveAppState);
 
 // Initialize
 populateRecommendedQuizzes();
+
+const savedState = loadAppState();
+if (savedState && savedState.lastUrl && savedState.lastUrl.startsWith('https://github.com')) {
+    fetchAndDisplayQuizzes(savedState.lastUrl);
+}

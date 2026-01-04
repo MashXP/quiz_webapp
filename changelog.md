@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.2.6 - 2026-01-04
+
+### Added
+- **Persistent Settings**: The application now saves user preferences (Shuffle Questions, Shuffle Choices, Delayed Feedback, Filter Incorrect Answers) and the last loaded GitHub URL (for Recommended Quizzes) to local storage, restoring them automatically on page reload.
+
 ## Version 1.2.5 - 2025-12-31
 
 ### Added

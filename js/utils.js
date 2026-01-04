@@ -46,3 +46,32 @@ function convertToApiUrl(githubUrl) {
         return null;
     }
 }
+
+function saveAppState() {
+    const state = {
+        shuffleQuestions: shuffleQuestionsCheckbox ? shuffleQuestionsCheckbox.checked : false,
+        shuffleChoices: shuffleChoicesCheckbox ? shuffleChoicesCheckbox.checked : true,
+        delayedFeedback: delayedFeedbackCheckbox ? delayedFeedbackCheckbox.checked : false,
+        filterIncorrect: filterIncorrectCheckbox ? filterIncorrectCheckbox.checked : false,
+        lastUrl: universalInput ? universalInput.value : ''
+    };
+    localStorage.setItem('quizAppState', JSON.stringify(state));
+}
+
+function loadAppState() {
+    const savedState = localStorage.getItem('quizAppState');
+    if (savedState) {
+        try {
+            const state = JSON.parse(savedState);
+            if (shuffleQuestionsCheckbox) shuffleQuestionsCheckbox.checked = state.shuffleQuestions;
+            if (shuffleChoicesCheckbox) shuffleChoicesCheckbox.checked = state.shuffleChoices;
+            if (delayedFeedbackCheckbox) delayedFeedbackCheckbox.checked = state.delayedFeedback;
+            if (filterIncorrectCheckbox) filterIncorrectCheckbox.checked = state.filterIncorrect;
+            if (universalInput) universalInput.value = state.lastUrl || '';
+            return state;
+        } catch (e) {
+            console.error("Failed to load app state", e);
+        }
+    }
+    return null;
+}
