@@ -399,13 +399,28 @@ h1, h2 {
     margin-top: 5px;
 }
 
-#version-display {
+#footer-info {
     position: fixed;
     bottom: 10px;
     right: 10px;
-    font-size: 0.8em;
-    color: #888;
     z-index: 9999;
+}
+
+#github-link {
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+#github-link:hover {
+    color: var(--primary-text-color);
+}
+
+#version-display {
+    font-size: 0.8em;
 }
 
 ::-webkit-scrollbar {
