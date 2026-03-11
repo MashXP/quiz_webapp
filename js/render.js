@@ -67,9 +67,7 @@ function showQuestion() {
         renderMathInElement(questionContainer, {
             delimiters: [
                 {left: "$$", right: "$$", display: true},
-                {left: "\[", right: "\]", display: true},
-                {left: "$", right: "$", display: false},
-                {left: "\(", right: "\)", display: false}
+                {left: "$", right: "$", display: false}
             ]
         });
     }

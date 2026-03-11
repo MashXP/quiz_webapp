@@ -53,9 +53,7 @@ function showResults() {
         renderMathInElement(detailedResultsContainer, {
             delimiters: [
                 {left: "$$", right: "$$", display: true},
-                {left: "\[", right: "\]", display: true},
-                {left: "$", right: "$", display: false},
-                {left: "\(", right: "\)", display: false}
+                {left: "$", right: "$", display: false}
             ]
         });
     }
