@@ -34,30 +34,30 @@ if (versionDisplay) {
 }
 
 const recommendedQuizzes = [
-    {
-        name: 'BK - Cell Biology (2025)',
-        url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/'
-    },
-    {
-        name: 'Cell Biology (Midterm)',
-        url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/BK_midterm'
-    },
-    {
-        name: 'Cell Biology (Finalterm)',
-        url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/BK_finalterm'
-    },
-    {
-        name: 'BK - Microbiology (2025)',
-        url: 'https://github.com/MashXP/BK_Microbiology/tree/master/quiz/'
-    },
-    {
-        name: 'BK - Mass Transfer Process & Equipment (2025)',
-        url: 'https://github.com/MashXP/BK_MassTransfer/tree/master/quiz/'
-    },
-    {
-        name: 'BK - Scientific Socialism - Finals (2025)',
-        url: 'https://github.com/MashXP/BK_XHCN/tree/master/quiz/'
-    }
+    // {
+    //     name: 'BK - Cell Biology (2025)',
+    //     url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/'
+    // },
+    // {
+    //     name: 'Cell Biology (Midterm)',
+    //     url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/BK_midterm'
+    // },
+    // {
+    //     name: 'Cell Biology (Finalterm)',
+    //     url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/BK_finalterm'
+    // },
+    // {
+    //     name: 'BK - Microbiology (2025)',
+    //     url: 'https://github.com/MashXP/BK_Microbiology/tree/master/quiz/'
+    // },
+    // {
+    //     name: 'BK - Mass Transfer Process & Equipment (2025)',
+    //     url: 'https://github.com/MashXP/BK_MassTransfer/tree/master/quiz/'
+    // },
+    // {
+    //     name: 'BK - Scientific Socialism - Finals (2025)',
+    //     url: 'https://github.com/MashXP/BK_XHCN/tree/master/quiz/'
+    // }
 ];
 
 let questions = [];
