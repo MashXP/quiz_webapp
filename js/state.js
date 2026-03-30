@@ -40,7 +40,7 @@ const recommendedQuizzes = [
     },
     {
         name: 'BK - Fermentation Technology (Midterm - 2026)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_Fermentation/quiz/'
+        url: 'https://github.com/MashXP/BK/tree/master/BK_MolecularBiology/quiz/'
     },
     {
         name: 'BK - Cell Biology (2025)',
