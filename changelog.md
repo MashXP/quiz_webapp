@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.2.7 - 2026-05-10
+
+### Added
+- **New Recommended Quizzes**: Added Molecular Biology (2026), Animal Cell Technology (2026), and Plant Cell Technology (2026) to the recommended quizzes list.
+
 ## Version 1.2.6 - 2026-01-04
 
 ### Added

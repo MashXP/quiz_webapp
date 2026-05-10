@@ -28,43 +28,51 @@ const universalInput = document.getElementById('universal-input');
 const universalLoadBtn = document.getElementById('universal-load-btn');
 const filterIncorrectCheckbox = document.getElementById('filter-incorrect-checkbox');
 
-const VERSION = "1.2.6";
+const VERSION = "1.2.7";
 if (versionDisplay) {
     versionDisplay.textContent = `v${VERSION}`;
 }
 
 const recommendedQuizzes = [
+    // {
+    //     name: 'BK - Cell Biology (2025)',
+    //     url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/'
+    // },
+    // {
+    //     name: 'Cell Biology (Midterm)',
+    //     url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/BK_midterm'
+    // },
+    // {
+    //     name: 'Cell Biology (Finalterm)',
+    //     url: 'https://github.com/MashXP/BK_CellBiology/tree/master/quiz/BK_finalterm'
+    // },
+    // {
+    //     name: 'BK - Microbiology (2025)',
+    //     url: 'https://github.com/MashXP/BK_Microbiology/tree/master/quiz/'
+    // },
+    // {
+    //     name: 'BK - Mass Transfer Process & Equipment (2025)',
+    //     url: 'https://github.com/MashXP/BK_MassTransfer/tree/master/quiz/'
+    // },
+    // {
+    //     name: 'BK - Scientific Socialism - Finals (2025)',
+    //     url: 'https://github.com/MashXP/BK_XHCN/tree/master/quiz/'
+    // }
     {
-        name: 'BK - Molecular Biology & Genetics (Midterm - 2026)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_MolecularBiology/quiz/'
+        name: 'BK - Microbial Fermentation (2026)',
+        url: 'https://github.com/MashXP/BK/tree/master/BK_Fermentation/quiz'
     },
     {
-        name: 'BK - Fermentation Technology (Midterm - 2026)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_Fermentation/quiz/'
+        name: 'BK - Molecular Biology (2026)',
+        url: 'https://github.com/MashXP/BK/tree/master/BK_MolecularBiology/quiz'
     },
     {
-        name: 'BK - Cell Biology (2025)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_CellBiology/quiz/'
+        name: 'BK - Cell Technology: Animal (2026)',
+        url: 'https://github.com/MashXP/BK/tree/master/BK_CellTech/quiz/animal'
     },
     {
-        name: 'Cell Biology (Midterm)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_CellBiology/quiz/BK_midterm'
-    },
-    {
-        name: 'Cell Biology (Finalterm)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_CellBiology/quiz/BK_finalterm'
-    },
-    {
-        name: 'BK - Microbiology (2025)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_Microbiology/quiz/'
-    },
-    {
-        name: 'BK - Mass Transfer Process & Equipment (2025)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_MassTransfer/quiz/'
-    },
-    {
-        name: 'BK - Scientific Socialism - Finals (2025)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_XHCN/quiz'
+        name: 'BK - Cell Technology: Plant (2026)',
+        url: 'https://github.com/MashXP/BK/tree/master/BK_CellTech/quiz/plant'
     }
 ];
 
