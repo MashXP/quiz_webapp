@@ -73,6 +73,14 @@ const recommendedQuizzes = [
     {
         name: 'BK - Cell Technology: Plant (2026)',
         url: 'https://github.com/MashXP/BK/tree/master/BK_CellTech/quiz/plant'
+    },
+    {
+        name: 'BK - Laboratory Of Unit Operations (2026)',
+        url: 'https://github.com/MashXP/BK/tree/master/BK_MechLabs/quiz/plant'
+    },
+    {
+        name: 'BK - History of Vietnamese Communist Party  (2026)',
+        url: 'https://github.com/MashXP/BK/tree/master/BK_LSD/quiz/plant'
     }
 ];
 
