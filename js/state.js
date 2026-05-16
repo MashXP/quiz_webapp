@@ -80,7 +80,7 @@ const recommendedQuizzes = [
     },
     {
         name: 'BK - History of Vietnamese Communist Party (2026)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_LSD/quiz/plant'
+        url: 'https://github.com/MashXP/BK/tree/master/BK_LSD/quiz'
     }
 ];
 
