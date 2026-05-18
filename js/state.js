@@ -18,6 +18,7 @@ const shuffleChoicesCheckbox = document.getElementById('shuffle-choices-checkbox
 const quizFileNameElement = document.getElementById('quiz-file-name');
 const fileUpload = document.getElementById('file-upload');
 const delayedFeedbackCheckbox = document.getElementById('delayed-feedback-checkbox');
+const autoMoveCheckbox = document.getElementById('auto-move-checkbox');
 const flagBtn = document.getElementById('flag-btn');
 const submitBtn = document.getElementById('submit-btn');
 const versionDisplay = document.getElementById('version-display');
@@ -28,7 +29,7 @@ const universalInput = document.getElementById('universal-input');
 const universalLoadBtn = document.getElementById('universal-load-btn');
 const filterIncorrectCheckbox = document.getElementById('filter-incorrect-checkbox');
 
-const VERSION = "1.2.7";
+const VERSION = "1.2.8";
 if (versionDisplay) {
     versionDisplay.textContent = `v${VERSION}`;
 }
@@ -90,3 +91,4 @@ let currentQuestionIndex = 0;
 let lastQuestionIndex = -1;
 let score = 0;
 let answerSelected = false;
+let autoMoveTimeout = null;

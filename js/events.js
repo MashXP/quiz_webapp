@@ -148,6 +148,7 @@ filterIncorrectCheckbox.addEventListener('change', () => {
 shuffleQuestionsCheckbox.addEventListener('change', saveAppState);
 shuffleChoicesCheckbox.addEventListener('change', saveAppState);
 delayedFeedbackCheckbox.addEventListener('change', saveAppState);
+autoMoveCheckbox.addEventListener('change', saveAppState);
 
 // Initialize
 populateRecommendedQuizzes();

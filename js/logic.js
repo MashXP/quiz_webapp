@@ -1,6 +1,6 @@
 function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     questions = quizData;
-    
+
     if (shuffleQuestionsCheckbox.checked) {
         shuffleArray(questions);
     } else {
@@ -23,7 +23,7 @@ function initializeQuiz(quizData, quizName = 'Pasted JSON') {
     currentQuestionIndex = 0;
     lastQuestionIndex = -1;
     score = 0;
-    
+
     filterIncorrectCheckbox.checked = false;
 
     document.getElementById('initial-setup-wrapper').classList.add('hide');
@@ -38,7 +38,7 @@ function initializeQuiz(quizData, quizName = 'Pasted JSON') {
 
     if (toggleProgressBtn) {
         const progressArrow = document.getElementById('progress-arrow');
-        if(progressArrow) {
+        if (progressArrow) {
             progressArrow.className = 'arrow down';
         }
     }
@@ -68,7 +68,7 @@ function selectAnswer(selectedButton, selectedOption) {
             });
         }
         selectedButton.classList.add('selected');
-        
+
         const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
         currentBlock.classList.add('answered');
 
@@ -92,7 +92,7 @@ function selectAnswer(selectedButton, selectedOption) {
         } else {
             selectedButton.classList.add('incorrect'); // Highlight selected button as incorrect
         }
-        
+
         const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
         currentBlock.classList.add('answered', isCorrect ? 'correct' : 'incorrect');
 
@@ -109,6 +109,18 @@ function selectAnswer(selectedButton, selectedOption) {
 
         nextButton.classList.remove('hide');
     }
+
+    if (autoMoveCheckbox && autoMoveCheckbox.checked) {
+        if (currentQuestionIndex < questions.length - 1) {
+            if (autoMoveTimeout) {
+                clearTimeout(autoMoveTimeout);
+            }
+            autoMoveTimeout = setTimeout(() => {
+                handleNext();
+                autoMoveTimeout = null;
+            }, 1000);
+        }
+    }
 }
 
 function handleNext() {
@@ -123,9 +135,9 @@ function handleNext() {
 function toggleFlag() {
     const question = questions[currentQuestionIndex];
     question.flagged = !question.flagged;
-    
+
     const currentBlock = document.getElementById(`progress-block-${currentQuestionIndex}`);
     currentBlock.classList.toggle('flagged');
-    
+
     flagBtn.textContent = question.flagged ? '🏳️' : '🚩';
 }

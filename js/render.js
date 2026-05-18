@@ -1,5 +1,10 @@
 function showQuestion() {
     resetState();
+    
+    if (autoMoveTimeout) {
+        clearTimeout(autoMoveTimeout);
+        autoMoveTimeout = null;
+    }
     updateQuestionCounter();
     
     if (lastQuestionIndex !== -1) {

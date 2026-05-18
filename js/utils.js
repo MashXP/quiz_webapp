@@ -52,6 +52,7 @@ function saveAppState() {
         shuffleQuestions: shuffleQuestionsCheckbox ? shuffleQuestionsCheckbox.checked : false,
         shuffleChoices: shuffleChoicesCheckbox ? shuffleChoicesCheckbox.checked : true,
         delayedFeedback: delayedFeedbackCheckbox ? delayedFeedbackCheckbox.checked : false,
+        autoMove: autoMoveCheckbox ? autoMoveCheckbox.checked : false,
         filterIncorrect: filterIncorrectCheckbox ? filterIncorrectCheckbox.checked : false,
         lastUrl: universalInput ? universalInput.value : ''
     };
@@ -66,6 +67,7 @@ function loadAppState() {
             if (shuffleQuestionsCheckbox) shuffleQuestionsCheckbox.checked = state.shuffleQuestions;
             if (shuffleChoicesCheckbox) shuffleChoicesCheckbox.checked = state.shuffleChoices;
             if (delayedFeedbackCheckbox) delayedFeedbackCheckbox.checked = state.delayedFeedback;
+            if (autoMoveCheckbox) autoMoveCheckbox.checked = state.autoMove || false;
             if (filterIncorrectCheckbox) filterIncorrectCheckbox.checked = state.filterIncorrect;
             if (universalInput) universalInput.value = state.lastUrl || '';
             return state;
