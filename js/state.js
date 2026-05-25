@@ -77,7 +77,7 @@ const recommendedQuizzes = [
     },
     {
         name: 'BK - Laboratory Of Unit Operations (2026)',
-        url: 'https://github.com/MashXP/BK/tree/master/BK_MechLabs/quiz/plant'
+        url: 'https://github.com/MashXP/BK/tree/master/BK_MechLabs/quiz'
     },
     {
         name: 'BK - History of Vietnamese Communist Party (2026)',
